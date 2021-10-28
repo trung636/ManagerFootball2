@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" th:href="@{/static/css/login.css}"
+	type="text/css">
+</head>
+<body>
+	<div th:insert="header"></div>
+	<h2>Login Form</h2>
+
+	<form th:action="@{/check_login}" method="post"
+		th:object="${accountDTO}">
+		<div class="imgcontainer">
+			<img th:src="@{/static/image/img_avatar2.png}" alt="Avatar"
+				class="avatar">
+		</div>
+
+		<div class="container">
+			<label for="uname"><b>Username</b></label> <input type="text"
+				placeholder="Enter Username" name="email" required> <label
+				for="psw"><b>Password</b></label> <input type="password"
+				placeholder="Enter Password" name="password" required>
+
+			<button type="submit">Login</button>
+			<label> <input type="checkbox" checked="checked"
+				name="remember"> Remember me
+			</label>
+		</div>
+
+		<div class="container" style="background-color: #f1f1f1">
+			<button type="button" class="cancelbtn">Cancel</button>
+			<span class="psw">Forgot <a href="#">password?</a></span>
+		</div>
+	</form>
+	<th:block>
+		<th:block th:if="${updateSuccess}!=null">
+			<script type="text/javascript">
+				alert("Update Profile Success");
+			</script>
+		</th:block>
+		<th:block th:if="${registySuccess}!=null">
+			<script type="text/javascript">
+				alert("Registy Success! Login Now");
+			</script>
+		</th:block>
+		<th:block th:if="${contactSuccess}!=null">
+			<script type="text/javascript">
+				alert("Contact Success");
+			</script>
+		</th:block>
+	</th:block>
+</body>
+</html>

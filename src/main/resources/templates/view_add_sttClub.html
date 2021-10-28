@@ -1,0 +1,21 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add STTCLub</title>
+</head>
+<body>
+
+		<form th:action = "@{/manager_club/add}" method="POST" th:object="${sttClubDTO}">
+				<label>Name STTClub</label>
+					<input type="text" name="name" required> <br>
+				<label>State STTCLub</label>
+					<select name= "enable">
+						<option>1</option>
+						<option>2</option>
+					</select><br>
+				<button  type="submit">ADD</button><br>s
+				<a th:href=@{/manager_club}>Return Club</a>
+		</form>
+
+</body>
+</html>

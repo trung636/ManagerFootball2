@@ -1,0 +1,23 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Header</title>
+</head>
+<body>
+	<header>
+		<ul>
+			<li><a th:href="@{/notifi}">Notifi</a></li>
+			<li><a th:href="@{/profile}">Profile</a></li>
+			<li><a th:href="@{/club}">Club</a></li>
+			<li><a th:href="@{/match}">Match</a></li>
+		</ul>
+		<ul th:if="${session.email}==null">
+			<li><a th:href="@{/login}">Forgot password</a></li>
+			<li><a th:href="@{/registy}">Registy</a></li>
+		</ul>
+		<ul th:if="${session.email}!=null">
+			<li><a th:href="@{/logout}">Logout</a></li>
+		</ul>
+	</header>
+</body>
+</html>

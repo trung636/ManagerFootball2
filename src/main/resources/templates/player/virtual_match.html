@@ -1,0 +1,86 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>New Notification</title>
+
+<style type="text/css">
+table, th, td {
+	border: 1px solid #868585;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	text-align: left;
+	padding: 10px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+table tr:nth-child(even) {
+	background-color: white;
+}
+
+table tr:nth-child(1) {
+	background-color: skyblue;
+}
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<div style="text-align: right;">
+	<a th:href="@{'/virtual-match/new?idMatch=' + ${idMatch}}">new</a>
+	</div>
+	<table  style="width: 100%">
+		<tr>
+			<th>List</th>
+			
+		</tr>
+		<tr th:if="${virtuals != null}" th:each ="virtual : ${virtuals}">
+			<td th:utext = "${virtual.list}"></td>
+			<td> <a th:href="@{'/virtual-match/join?id='  + ${virtual.id}+ '&idMatch=' + ${idMatch}}">join</a></td>
+			<td> <a th:href="@{'/virtual-match/cancel?id='  + ${virtual.id} + '&idMatch=' + ${idMatch}}" style="color: red;">Cancel</a></td>
+		</tr>
+		<tr th:if="${virtuals == null}">
+		<td><a th:href="@{/virtual-match/new(idMatch = ${idMatch})}">Add New Virtual Match</a> </td>
+		</tr>
+	</table>
+	<th:block>
+		<th:block th:if="${joinFail}!=null">
+			<script type="text/javascript">
+				alert("Join Fail! You already exists");
+			</script>
+		</th:block>
+		<th:block th:if="${joinSuccess}!=null">
+			<script type="text/javascript">
+				alert("You Join Success!!");
+			</script>
+		</th:block>
+		<th:block th:if="${cancelFail}!=null">
+			<script type="text/javascript">
+				alert("Cancel Fail! You Does Not Exist");
+			</script>
+		</th:block>
+		<th:block th:if="${cancelSuccess}!=null">
+			<script type="text/javascript">
+				alert("You Cancel Success !!");
+			</script>
+		</th:block>
+		<th:block th:if="${fail}!=null">
+			<script type="text/javascript">
+				alert("Create Fail!!! You already exists");
+			</script>
+		</th:block>
+		<th:block th:if="${success}!=null">
+			<script type="text/javascript">
+				alert("Create Success");
+			</script>
+		</th:block>
+	</th:block>
+</body>
+</html>

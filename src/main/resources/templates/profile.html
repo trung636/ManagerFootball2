@@ -1,0 +1,71 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>profile</title>
+</head>
+<body>
+	<div>
+		<form th:action = "@{/update_profile}" method="POST" th:object="${playerDTO}">
+				<label>Name</label>
+				<input type="text" name="namePlayer" th:value="${players.namePlayer}"  required> <br>
+				
+				<label>Ward</label>
+				<input type="text" name = "ward" th:value="${players.ward}"  readonly><br>
+				
+				<label>District</label>
+				<input type="text" name= "district" th:value="${players.district}"  readonly><br>
+				
+				<label>Email</label>
+				<input type="text" name="email" th:value="${players.email}"  readonly>  <br>
+				
+				<label>Position</label> 
+				<input type="text" name = "position" th:value="${players.position}" readonly />  <br>
+				
+			<button type="submit">Update</button>
+		</form>
+		<!--UI Change Password-->
+		<form th:action="@{/change_password}" method="POST"
+			  autocomplete="off" th:object="${accountDTO}">
+			
+				<label>Current password</label> 
+				<input name="password" type="password" placeholder="" /> <br>
+	
+				<label for="txt_new_password">New password</label> 
+				<input  name="currentPassword" type="password" id="password" placeholder="" />  <br>
+				
+				<label>Confirm new password</label> 
+				<input name="confirmCrPassword" type="password" id="confirm_password" placeholder="" /> <br> 
+			<button type="submit">Change Password</button>	
+		</form>
+	</div>
+	<th:block>
+		<th:block th:if="${updateSuccess}!=null">
+			<script type="text/javascript">
+				alert("Update Profile Success");
+			</script>
+		</th:block>
+		<th:block th:if="${changePasswordFail}!=null">
+			<script type="text/javascript">
+				alert("Fail!!! Check Password");
+			</script>
+		</th:block>
+		<th:block th:if="${changePasswordSuccess}!=null">
+			<script type="text/javascript">
+				alert("Change Success");
+			</script>
+		</th:block>
+	</th:block>
+	<script>
+	var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+	function validatePassword(){
+	 	if(password.value != confirm_password.value) {
+	    confirm_password.setCustomValidity("Passwords Don't Match");
+	  	} else {
+	    confirm_password.setCustomValidity('');
+	  	}
+	}
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+	</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>New Notification</title>
+
+<style type="text/css">
+table, th, td {
+	border: 1px solid #868585;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	text-align: left;
+	padding: 10px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+table tr:nth-child(even) {
+	background-color: white;
+}
+
+table tr:nth-child(1) {
+	background-color: skyblue;
+}
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<table style="width: 100%">
+		<tr>
+			<th>Time</th>
+			<th>Player</th>
+			<th>State</th>
+			<th>View Virtual</th>
+		</tr>
+		<tr th:each ="match : ${matchClubs}">
+			<td th:utext = "${match.timeStart}+ ' - ' + ${match.timeEnd}"></td>
+			<td th:utext = "${match.rs}"></td>
+			<td th:utext = "${match.state}"></td>
+			<th:block th:if="${match.state == 0}">
+				<td><a th:href="@{'/manager-match/virtual-match/'+ ${match.id}}">view</a></td>
+				<td><a th:href="@{'/manager-match/book?idMatch=' + ${match.id}} + '&idClub=' + ${idClub} "> book</a></td>
+			</th:block>
+			<th:block th:if="${match.state == 1}">
+				<td>AB</td>
+				<td>huy</td>
+			</th:block>
+			
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>New Notification</title>
+
+<style type="text/css">
+table, th, td {
+	border: 1px solid #868585;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	text-align: left;
+	padding: 10px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+table tr:nth-child(even) {
+	background-color: white;
+}
+
+table tr:nth-child(1) {
+	background-color: skyblue;
+}
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<table style="width: 100%">
+		<tr>
+			<th>Id</th>
+			<th>Time</th>
+			<th>Count Member</th>
+			<th>Player</th>
+			<th>State</th>
+			<th>a</th>
+		</tr>
+		<tr>
+			<td>a</td>
+			<td>a</td>
+			<td>a</td>
+			<td>a</td>
+			<td>a</td>
+			<td>a</tr>
+	</table>
+	
+	<a th:href = "@{/set_time}">setTime</a>
+</body>
+</html>

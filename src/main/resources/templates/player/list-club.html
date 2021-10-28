@@ -1,0 +1,50 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>New Notification</title>
+
+<style type="text/css">
+table, th, td {
+	border: 1px solid #868585;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	text-align: left;
+	padding: 10px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+table tr:nth-child(even) {
+	background-color: white;
+}
+
+table tr:nth-child(1) {
+	background-color: skyblue;
+}
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<table style="width: 100%">
+		<tr>
+			<th>Name Club</th>
+			<th>Address</th>
+			<th>Time Active</th>
+		</tr>
+		<tr th:each="club : ${clubs}">
+			<td th:utext="${club.nameClub}"></td>
+			<td th:utext="${club.address} + '-' + ${club.ward} + '-' + ${club.district} + '-' + ${club.city}"></td>
+			<td th:utext="${club.timeStart} + '-' + ${club.timeEnd}"> </td>
+			<td><a th:href="@{'/club/' + ${club.id}}">view</a></td>
+		</tr>
+	</table>
+</body>
+</html>
