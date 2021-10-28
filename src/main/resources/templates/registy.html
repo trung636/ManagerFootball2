@@ -1,14 +1,83 @@
 <html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Register</title>
+<style type="text/css">
+
+.registy {
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    border-radius: 5px;
+    padding: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: table;
+}
+h2{
+    margin-top: 0px;
+    font-family: Source Sans Pro;
+    font-weight: lighter;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    text-align: center;
+}
+.signin {
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    border-radius: 5px;
+    padding: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+input{
+    display: block;
+    width: 400px;
+    height: 26px;
+    background: rgba(15, 49, 243, 0);
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    font-family: Source Sans Pro;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+button{
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+    background: rgba(163, 87, 0, 0.61);
+    font-weight: lighter;
+    color: yellow;
+    border: 0px;
+    border-radius: 5px;
+}
+</style>
 </head>
 <body>
-	<div th:if="${name}==''">
-	<a th:href="@{/registy(name='registyPlayer')}">Registy Player</a><br>
-	<a th:href="@{/registy(name='registyClub')}">Registy Club</a>
+	<div th:insert="header"></div>
+	<br>
+	<br>
+	
+	<div class="registy" th:if="${name}==''">
+		<a th:href="@{/registy(name='registyPlayer')}" ><button> Registy Player</button></a>
+		<a th:href="@{/registy(name='registyClub')}" ><button>Registy Club</button></a>
 	</div>
-	<th:block th:if="${name}=='registyPlayer'">
+	<div class="signin" th:if="${name}=='registyPlayer'">
+	<h2>Registy Player</h2>
 		<form th:action = "@{/new_player}" method="POST" th:object="${playerDTO}">
 				<label>Name</label>
 				<input type="text" name="namePlayer" required> <br>
@@ -17,7 +86,12 @@
 				<input type="text" name="email"  required> <br>
 				
 				<label>Position</label>
-					<input type="text" name="position"  required> <br>
+				<select name = "position">
+	                <option> GK</option>
+	                <option> CB</option>
+	                <option> CM</option>
+	                <option> ST</option>
+             	</select><br>
 				
 				<label>City</label>
 					<select name="city">
@@ -52,11 +126,13 @@
 				<label>Confirm password</label>
 				<input name="confirmPassword" type="password" id="confirm_password" placeholder=""  required/> <br> 
 				
-			<button type="submit">Update</button>
+			<button type="submit">Registy</button>
+			
 		</form>
 		<!--UI Change Password-->
-	</th:block>
-	<div th:if="${name}=='registyClub'">
+	</div>
+	<div class="signin" th:if="${name}=='registyClub'">
+		<h2>Registy Club</h2>
 	
 		<form th:action = "@{/new_club}" method="POST" th:object="${clubDTO}" >
 		
@@ -106,7 +182,7 @@
 				<label>Confirm password</label>
 					<input  type="password" name="confirmPassword" id="confirm_password" required /> <br> 
 				
-			<button type="submit">Update</button>
+			<button type="submit">Registy</button>
 		</form>
 	</div>
 	<th:block>

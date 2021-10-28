@@ -4,6 +4,7 @@
 <title>Add STTCLub</title>
 </head>
 <body>
+	<div th:insert="header"></div>
 
 		<form th:action = "@{/manager_club/add}" method="POST" th:object="${sttClubDTO}">
 				<label>Name STTClub</label>

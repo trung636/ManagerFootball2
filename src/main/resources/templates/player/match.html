@@ -33,6 +33,11 @@ table tr:nth-child(1) {
 </head>
 <body>
 	<div th:insert="header"></div>
+	<div style="text-align: right;">
+	<a th:href="@{'/match?idStt='+ ${idStt}+'&date=today'}">today</a>
+	<a th:href="@{'/match?idStt='+ ${idStt}+'&date=tomorrow'}">tomorrow</a>
+	<a th:href="@{'/match?idStt='+ ${idStt} +'&date=afterTomorrow'}">after tomorrow</a>
+	</div>
 	<table style="width: 100%">
 		<tr>
 			<th>Time</th>
