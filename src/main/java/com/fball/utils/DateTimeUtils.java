@@ -44,7 +44,19 @@ public class DateTimeUtils {
 	
 	public static String checkTimeStart(MatchSTTClub match) {
 		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("HH:mm dd:MM:yyyy");
-		String rs =match.getTimeStart()+" "+ match.getDate() + ":" + match.getMonth() + ":" + match.getYear();
+		String rs = match.getTimeStart() +" ";
+		int d = match.getDate();
+		if(d<10) {
+			rs = rs + "0" + d;
+		}else {
+			rs = rs + d;
+		}
+		int m =match.getMonth();
+		if(m<9) {
+			rs = rs + ":0" + m + ":" + match.getYear();
+		}else {
+			rs = rs + ":" + m + ":" + match.getYear();
+		}
 		LocalDateTime local = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
 		LocalDateTime time = LocalDateTime.parse(rs, formatter);
 		if(time.isAfter(local) == false) {
@@ -56,8 +68,19 @@ public class DateTimeUtils {
 	public static String checkTimeCancel(MatchSTTClub match) {
 		
 		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("HH:mm dd:MM:yyyy");
-
-		String rs =match.getTimeStart()+" "+ match.getDate() + ":" + match.getMonth() + ":" + match.getYear();
+		String rs = match.getTimeStart() +" ";
+		int d = match.getDate();
+		if(d<10) {
+			rs = rs + "0" + d;
+		}else {
+			rs = rs + d;
+		}
+		int m =match.getMonth();
+		if(m<9) {
+			rs = rs + ":0" + m + ":" + match.getYear();
+		}else {
+			rs = rs + ":" + m + ":" + match.getYear();
+		}
 		LocalDateTime local = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
 		LocalDateTime time = LocalDateTime.parse(rs, formatter).minusHours(2);
 		if(time.isAfter(local) == false) {

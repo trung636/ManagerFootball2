@@ -49,7 +49,6 @@ public class PlayerServiceImp implements PlayerService {
 
 	@Override
 	public List<STTClubDTO> getListSTTClubById(int idClub) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

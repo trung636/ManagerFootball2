@@ -14,9 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.fball.dao.ClubDAO;
+import com.fball.dao.NotifiDAO;
 import com.fball.dao.PlayerDAO;
 import com.fball.dto.AccountDTO;
 import com.fball.dto.ClubDTO;
+import com.fball.dto.NotifiDTO;
 import com.fball.dto.PlayerDTO;
 import com.fball.service.LoginService;
 
@@ -28,6 +30,9 @@ public class LoginServiceImp implements LoginService {
 	
 	@Autowired
 	private ClubDAO clubDAO;
+	
+	@Autowired
+	private NotifiDAO notifiDAO;
 	
 	
 	@Override
@@ -84,6 +89,14 @@ public class LoginServiceImp implements LoginService {
 		clubDAO.addClub(clubDTO);
 		
 		return "success";
+	}
+
+
+	@Override
+	public List<NotifiDTO> getAllNotifi(String email) {
+		List<NotifiDTO> notifi = notifiDAO.getAllNotifi(email);
+		
+		return notifi;
 	}
 
 }

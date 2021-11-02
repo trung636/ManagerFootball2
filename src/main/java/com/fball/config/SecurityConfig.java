@@ -18,7 +18,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter  {
 				.authorizeRequests()
 					.antMatchers("/","/login","/check_login","/logout","/registy","/new_player","/new_club").permitAll()
 					.antMatchers("/notifi","/profile", "/update_profile","/change_password").permitAll()
-					.antMatchers("/list-club/**","/club/**", "/match/**", "/virtual-match/**").hasAnyRole("player")
+					.antMatchers("/list-club/**","/club/**", "/match/**", "/virtual-match/**", "/friend/**").hasAnyRole("player")
 					.antMatchers("/manager-club/**","/manager-match/**").hasAnyRole("manager")
 					.anyRequest().denyAll()
 				.and()

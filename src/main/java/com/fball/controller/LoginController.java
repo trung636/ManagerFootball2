@@ -1,5 +1,7 @@
 package com.fball.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fball.dto.AccountDTO;
 import com.fball.dto.ClubDTO;
+import com.fball.dto.NotifiDTO;
 import com.fball.dto.PlayerDTO;
 import com.fball.service.LoginService;
 
@@ -44,10 +47,13 @@ public class LoginController {
 	}
 	
 	@GetMapping("notifi")
-	public String notifi(HttpSession session) {
+	public String notifi(HttpSession session, Model model) {
+		
 		if(session.getAttribute("email")==null) {
 			return "redirect:/login";
 		}
+		List<NotifiDTO> notifi = loginService.getAllNotifi(session.getAttribute("email").toString());
+		model.addAttribute("notifi", notifi);
 		return "notifi";
 	}
 	@GetMapping("/logout")

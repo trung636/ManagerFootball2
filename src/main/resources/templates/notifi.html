@@ -35,20 +35,15 @@ table tr:nth-child(1) {
 	<div th:insert="header"></div>
 	<table style="width: 100%">
 		<tr>
-			<th>Id</th>
 			<th>Time</th>
-			<th>Count Member</th>
-			<th>Player</th>
-			<th>State</th>
-			<th>a</th>
+			<th>Message</th>
 		</tr>
-		<tr>
-			<td>a</td>
-			<td>a</td>
-			<td>a</td>
-			<td>a</td>
-			<td>a</td>
-			<td>a</tr>
+		<tr th:each="notifi :${notifi}">
+			<td th:utext="${notifi.time}"></td>
+			<td th:utext="${notifi.message}"></td>
+			<td><a th:href>Accept</a></td>
+			<td><a style="color: red;" th:href>Deny</a></td>
+		</tr>
 	</table>
 	
 	<a th:href = "@{/set_time}">setTime</a>

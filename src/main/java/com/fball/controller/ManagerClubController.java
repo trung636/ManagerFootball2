@@ -59,7 +59,6 @@ public class ManagerClubController {
 		return"redirect:/manager-club";
 	}
 	
-	
 	@GetMapping("/add")
 	private String viewAddSTTClub() {
 		return "view_add_sttClub";
