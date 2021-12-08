@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fball.dao.ManagerMatchDAO;
+import com.fball.dto.DateDTO;
 import com.fball.dto.MatchSTTClub;
 import com.fball.utils.SetParamaterForDAOUtils;
 
@@ -48,14 +49,17 @@ public class ManagerMatchDAOImp implements ManagerMatchDAO {
 	}
 
 	@Override
-	public List<MatchSTTClub> getMatchSTTClubById(int id) {
+	public List<MatchSTTClub> getMatchSTTClubById(int id, DateDTO dateDTO) {
 		String sql = "select * from match_stt_club \n"
-				+ "where id_stt_club = ?";
+				+ "where id_stt_club = ? \n"
+				+ "and date = ? \n "
+				+ "and month = ? \n"
+				+ "and year = ? ";
 		List<MatchSTTClub> matchClubs = new ArrayList<>();
 		try(
 				Connection conn =dataSource.getConnection();
 				PreparedStatement ps =conn.prepareStatement(sql)){
-			SetParamaterForDAOUtils.setParamater(ps, id);
+			SetParamaterForDAOUtils.setParamater(ps, id, dateDTO.getDate(), dateDTO.getMonth(), dateDTO.getYear());
 			System.out.println(sql);
 				try(ResultSet rs =ps.executeQuery()){
 					while(rs.next()) {

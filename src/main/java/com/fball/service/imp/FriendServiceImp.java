@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fball.dao.FriendDAO;
+import com.fball.dao.NotifiDAO;
 import com.fball.dto.CardPlayer;
 import com.fball.dto.Contact;
+import com.fball.dto.NotifiDTO;
 import com.fball.service.FriendService;
 
 @Service
@@ -23,6 +25,9 @@ public class FriendServiceImp implements FriendService {
 	
 	@Autowired
 	private FriendDAO friendDAO;
+	
+	@Autowired
+	private NotifiDAO notifiDAO;
 
 	@Override
 	public List<CardPlayer> getMyFriend(String email) {
@@ -125,6 +130,22 @@ public class FriendServiceImp implements FriendService {
 		if (email == null || email.equals("")) {
 			return "fail";
 		}
+		if(state==2) {
+			NotifiDTO notifi = new NotifiDTO();
+			notifi.setEmail(email);
+			notifi.setEvent("2");
+			notifi.setHandleEvent("");
+			notifi.setMessage("New Friend Success! To Friend");
+			notifiDAO.addNotifi(notifi);
+		}
+		if(state==3) {
+			NotifiDTO notifi = new NotifiDTO();
+			notifi.setEmail(email);
+			notifi.setEvent("2");
+			notifi.setHandleEvent("");
+			notifi.setMessage("New Friend Fail! To Friend");
+			notifiDAO.addNotifi(notifi);
+		}
 		String result = friendDAO.stateContact(email, session, state);
 		if (result == null) {
 			return "fail";
@@ -134,12 +155,20 @@ public class FriendServiceImp implements FriendService {
 
 	@Override
 	public String playerContact(int id, HttpSession session, int state) {
+		
 		String email = friendDAO.getEmailPlayerById(id);
 		if (email == null || email.equals("")) {
 			return "fail";
 		}
 		String result = friendDAO.playerContact(email, session, state);
-		
+		if(result.equals("success")) {
+			NotifiDTO notifi = new NotifiDTO();
+			notifi.setEmail(email);
+			notifi.setEvent("1");
+			notifi.setHandleEvent("");
+			notifi.setMessage("New friend request");
+			notifiDAO.addNotifi(notifi);
+		}
 		return result;
 	}
 

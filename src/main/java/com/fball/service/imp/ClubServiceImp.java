@@ -1,5 +1,6 @@
 package com.fball.service.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,19 @@ public class ClubServiceImp implements ClubService {
 			return null;
 		}
 		return sttClub;
+	}
+
+	@Override
+	public List<ClubDTO> getListClubByDistrict(String district) {
+		List<ClubDTO> rs =  getAllListClub();
+		List<ClubDTO> clubs = new ArrayList<>();
+		for(ClubDTO i : rs) {
+			if(i.getDistrict().equals(district)) {
+				clubs.add(i);
+			}
+		}
+		return clubs;
+		
 	}
 
 }

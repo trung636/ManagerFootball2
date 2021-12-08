@@ -34,9 +34,9 @@ table tr:nth-child(1) {
 <body>
 	<div th:insert="header"></div>
 	<div style="text-align: right;">
-	<a th:href="@{'/match?idStt='+ ${idStt}+'&date=today'}">today</a>
-	<a th:href="@{'/match?idStt='+ ${idStt}+'&date=tomorrow'}">tomorrow</a>
-	<a th:href="@{'/match?idStt='+ ${idStt} +'&date=afterTomorrow'}">after tomorrow</a>
+		<a th:href="@{'/match?idStt='+ ${idStt}+'&date=today'}">today</a>
+		<a th:href="@{'/match?idStt='+ ${idStt}+'&date=tomorrow'}">tomorrow</a>
+		<a th:href="@{'/match?idStt='+ ${idStt} +'&date=afterTomorrow'}">after tomorrow</a>
 	</div>
 	<table style="width: 100%">
 		<tr>
@@ -49,10 +49,12 @@ table tr:nth-child(1) {
 			<td th:utext = "${match.timeStart}+ ' - ' + ${match.timeEnd}"></td>
 			<td th:utext = "${match.rs}"></td>
 			<td th:utext = "${match.state}"></td>
+			
 			<th:block th:if="${match.state == 0}">
 				<td><a th:href="@{'/virtual-match/' + ${match.id} + '?idStt=' + ${idStt}}">View Virtual Match</a></td>
 				<td><a th:href="@{'/match/book?idMatch=' + ${match.id} + '&idStt=' + ${idStt} +'&date='+${date}}"> book</a></td>
 			</th:block>
+			
 			<th:block th:if="${match.state == 1}">
 				<td><a th:href="@{'/match/cancel?idMatch=' + ${match.id} + '&idStt=' + ${idStt}+'&date='+${date}} ">Cancel</a></td>
 			</th:block>

@@ -43,11 +43,12 @@ table tr:nth-child(1) {
 		</tr>
 		<tr th:if="${virtuals != null}" th:each ="virtual : ${virtuals}">
 			<td th:utext = "${virtual.list}"></td>
-			<td> <a th:href="@{'/virtual-match/join?id='  + ${virtual.id}+ '&idMatch=' + ${idMatch}}">join</a></td>
-			<td> <a th:href="@{'/virtual-match/cancel?id='  + ${virtual.id} + '&idMatch=' + ${idMatch}}" style="color: red;">Cancel</a></td>
+			<td> <a th:href="@{'/virtual-match/join?idVirtual='  + ${virtual.id}+ '&idMatch=' + ${idMatch}}">join</a></td>
+			<td> <a th:href="@{'/virtual-match/cancel?idVirtual='  + ${virtual.id} + '&idMatch=' + ${idMatch}}" style="color: red;">Cancel</a></td>
+			<td><a th:href="@{'/virtual-match/invite/' + ${virtual.id}}+'?idMatch=' + ${idMatch}">Invite Friend</a></td>
 		</tr>
 		<tr th:if="${virtuals == null}">
-		<td><a th:href="@{/virtual-match/new(idMatch = ${idMatch})}">Add New Virtual Match</a> </td>
+			<td><a th:href="@{/virtual-match/new(idMatch = ${idMatch})}">Add New Virtual Match</a> </td>
 		</tr>
 	</table>
 	<th:block>
@@ -79,6 +80,21 @@ table tr:nth-child(1) {
 		<th:block th:if="${success}!=null">
 			<script type="text/javascript">
 				alert("Create Success");
+			</script>
+		</th:block>
+		<th:block th:if="${inviteSuccess}!=null">
+			<script type="text/javascript">
+				alert("Invite Success!!!");
+			</script>
+		</th:block>
+		<th:block th:if="${inviteFail}!=null">
+			<script type="text/javascript">
+				alert("Pls Join, Then Try Again!!");
+			</script>
+		</th:block>
+		<th:block th:if="${timeFail}!=null">
+			<script type="text/javascript">
+				alert("Check Time!!");
 			</script>
 		</th:block>
 	</th:block>

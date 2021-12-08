@@ -32,7 +32,7 @@ table tr:nth-child(1) {
 </style>
 </head>
 <body>
-	<div th:insert="header"></div>
+	<div th:insert="manager/header"></div>
 	<div style="text-align: right;">
 	<a th:if="${session.namePlayer!=null}" th:href="@{/virtual_match/new(idMatch = ${idMatch})}">new</a>
 	</div>

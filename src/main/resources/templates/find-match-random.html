@@ -1,0 +1,77 @@
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+<style type="text/css">
+
+.registy {
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    border-radius: 5px;
+    padding: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: table;
+}
+h2{
+    margin-top: 0px;
+    font-family: Source Sans Pro;
+    font-weight: lighter;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    text-align: center;
+}
+.signin {
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    border-radius: 5px;
+    padding: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+input{
+    display: block;
+    width: 400px;
+    height: 26px;
+    background: rgba(15, 49, 243, 0);
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    font-family: Source Sans Pro;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+button{
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+    background: rgba(163, 87, 0, 0.61);
+    font-weight: lighter;
+    color: yellow;
+    border: 0px;
+    border-radius: 5px;
+}
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<div class="registy">
+		<a th:href="@{/registy(name='registyPlayer')}" ><button>Random Team</button></a>
+		<a th:href="@{/registy(name='registyClub')}" ><button>Random Single</button></a>
+	</div>
+</body>
+</html>

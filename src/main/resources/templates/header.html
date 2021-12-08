@@ -105,28 +105,51 @@
 </head>
 <body>
 	<header>
-	<div class="nav-bar">
-		<div class="logo">
-            <h1>Sân Bóng</h1>
-        </div>
-        
-        <div class="menu-bar">
-			<ul>
-				<li><a th:href="@{/notifi}">Notifi</a></li>
-				<li><a th:href="@{/profile}">Profile</a></li>
-				<li><a th:href="@{/club}">Club</a></li>
-				<li><a th:href="@{/match}">Match</a></li>
-				<li><a th:href="@{/friend}">Friend</a></li>
-			</ul>
-		</div>
-		<div class="login" th:if="${session.email}==null">
-			<a th:href="@{/login}" class="sign-in" >Sign in</a>
-            <a th:href="@{/registy}" class="sign-up">Sign up</a>
-		</div>
-		<div class="login" th:if="${session.email}!=null">
-			<a th:href="@{/logout}" class="sign-up">Logout</a>
-		</div>
-    </div>
+		<div class="nav-bar" th:if="${session.namePlayer != null}">
+			<div class="logo">
+	            <h1>FOOTBALL</h1>
+	        </div>
+	        
+	        <div class="menu-bar">
+				<ul>
+					<li><a th:href="@{/home}">Notifi</a></li>
+					<li><a th:href="@{/notifi}">Notifi</a></li>
+					<li><a th:href="@{/list-club}">Find Club</a></li>
+					<li><a th:href="@{/find-match}">Find Match</a></li>
+					<li><a th:href="@{/my-match}">My Match</a></li>
+					<li><a th:href="@{/friend}">Friend</a></li>
+				</ul>
+			</div>
+			<div class="login" th:if="${session.email}==null">
+				<a th:href="@{/login}" class="sign-in" >Sign in</a>
+	            <a th:href="@{/registy}" class="sign-up">Sign up</a>
+			</div>
+			<div class="login" th:if="${session.email}!=null">
+				<a th:href="@{/logout}" class="sign-up">Logout</a>
+				<a th:href="@{/profile}" class="sign-up">Profile</a>
+			</div>
+	    </div>
+		<div class="nav-bar" th:if="${session.nameClub != null}">
+			<div class="logo">
+	            <h1>Manager Football</h1>
+	        </div>
+	        
+	        <div class="menu-bar">
+				<ul>
+					<li><a th:href="@{/notifi}">Notifi</a></li>
+					<li><a th:href="@{/manager-club}">Manager Club</a></li>
+				</ul>
+			</div>
+			<div class="login" th:if="${session.email}==null">
+				<a th:href="@{/login}" class="sign-in" >Sign in</a>
+	            <a th:href="@{/registy}" class="sign-up">Sign up</a>
+			</div>
+			<div class="login" th:if="${session.email}!=null">
+				<a th:href="@{/logout}" class="sign-up">Logout</a>
+				<a th:href="@{/profile}" class="sign-up">Profile</a>
+			</div>
+  	  </div>
+		
 		
 	</header>
 </body>

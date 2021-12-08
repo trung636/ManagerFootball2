@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fball.dto.MatchSTTClub;
 import com.fball.dto.VirtualMatchDTO;
 import com.fball.service.ManagerMatchService;
 import com.fball.service.VirtualMatchService;
+import com.fball.utils.DateTimeUtils;
 
 @Controller
 @RequestMapping("/manager-match")
@@ -27,17 +29,20 @@ public class ManagerMatchController {
 	private VirtualMatchService virtualMatchService;
 	
 	@GetMapping("/{id}")
-	public String viewMatchSTTClub(@PathVariable int id, HttpSession session, Model model) {
+	public String viewMatchSTTClub(
+			@RequestParam(required = false, defaultValue = "today") String date,
+			@PathVariable int id, HttpSession session, Model model) {
 		
-		List<MatchSTTClub> matchClubs = managerMatchService.getMatchSTTClubById(id);
-		
+		List<MatchSTTClub> matchClubs = managerMatchService.getMatchSTTClubById(id, DateTimeUtils.setDate(date));
 		model.addAttribute("idClub", id);
 		model.addAttribute("matchClubs", matchClubs);
 		
 		return	"manager/match";
 	}
+	
 	@GetMapping("/virtual-match/{idMatch}")
-	public String viewVirtualMatchByIdMatch(@PathVariable("idMatch") int idMatch, Model model) {
+	public String viewVirtualMatchByIdMatch(
+			@PathVariable("idMatch") int idMatch, Model model) {
 		List<VirtualMatchDTO> virtuals = virtualMatchService.getListVirtualMatchByIdMatch(idMatch);
 		model.addAttribute("virtuals", virtuals);
 		model.addAttribute("idMatch", idMatch);

@@ -8,4 +8,6 @@ public interface NotifiDAO {
 
 	List<NotifiDTO> getAllNotifi(String email);
 
+	String addNotifi(NotifiDTO notifi);
+
 }

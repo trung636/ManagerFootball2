@@ -32,7 +32,7 @@ table tr:nth-child(1) {
 </style>
 </head>
 <body>
-	<div th:insert="header"></div>
+	<div th:insert="manager/header"></div>
 	
 	Name Club: <h6 th:utext= "${clubDTO.nameClub}"></h6><br>
 	Time Active: <h6 th:utext= "${clubDTO.timeStart}+'-'+ ${clubDTO.timeEnd}"></h6><br>
@@ -51,8 +51,7 @@ table tr:nth-child(1) {
 			<td th:utext="${sttClub.name}"></td>
 			<td th:utext="${sttClub.enable}"></td>
 			<td><a th:href="@{'/manager-match/' + ${sttClub.id}}">view</a></td>
-			<td>delete</td>
-			<td>Edit State</td>
+			<td><a style="color: red;" th:href>delete</a></td>
 		</tr>
 	</table>
 </body>

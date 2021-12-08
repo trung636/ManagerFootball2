@@ -43,6 +43,9 @@ public class LoginController {
 		if(result.equals("fail")) {
 			return "redirect:/login";
 		}
+		if(session.getAttribute("namePlayer")!=null) {
+			return "redirect:/home";			
+		}
 		return "redirect:/notifi";
 	}
 	

@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.fball.dao.DataMatchPlayerDAO;
 import com.fball.dao.MatchDAO;
+import com.fball.dao.NotifiDAO;
 import com.fball.dto.DataMatchPlayerDTO;
 import com.fball.dto.DateDTO;
 import com.fball.dto.MatchSTTClub;
+import com.fball.dto.NotifiDTO;
+import com.fball.dto.VirtualMatchDTO;
 import com.fball.service.MatchService;
+import com.fball.service.VirtualMatchService;
 import com.fball.utils.DateTimeUtils;
-import com.fball.utils.NotificationUtils;
 import com.fball.utils.Utils;
 
 @Service
@@ -26,6 +29,11 @@ public class MatchServiceImp implements MatchService {
 	@Autowired
 	private DataMatchPlayerDAO dataDAO;
 	
+	@Autowired
+	private VirtualMatchService virtualMatchService;
+	
+	@Autowired
+	private NotifiDAO notifiDAO;
 
 	@Override
 	public List<MatchSTTClub> getListMatchSTTClubByIdStt(int idStt, DateDTO dateDTO) {
@@ -54,29 +62,39 @@ public class MatchServiceImp implements MatchService {
 		if(checkData.equals("fail")) {
 			return "timeFail";
 		}
+		
 //		add match
 		match.setRs(session.getAttribute("email").toString());
 		match.setState(1);
 		String rs = matchDAO.updateMatch(match);
 		
-		// add	match players
+// add	match players
 		if(rs.equals("success")) {
-			
 			DataMatchPlayerDTO data = new DataMatchPlayerDTO();
 			data.setEmailPlayer(session.getAttribute("email").toString());
 			data.setIdMatch(match.getId());
 			data.setTimeStart(match.getTimeStart());
-			data.setState(match.getYear());
+			data.setState(1);
+			data.setIdVirtual(0);
 			data.setTimeEnd(match.getTimeEnd());
 			data.setDate(match.getDate());
 			data.setMonth(match.getMonth());
 			data.setYear(match.getYear());
 			dataDAO.addDataMatchPlayer(data);
-			
 		}
 		
-		NotificationUtils.sendMessageSuccessToPlayer(session.getAttribute("email").toString());
+//		delete virtual match and notifi
+		NotifiDTO notifi = new NotifiDTO();
+		notifi.setEmail(session.getAttribute("email").toString());
+		notifi.setEvent("4");
+		notifi.setHandleEvent("");
+		notifi.setMessage("Book Success");
+		notifiDAO.addNotifi(notifi);
 		
+		List<VirtualMatchDTO> list = virtualMatchService.getListVirtualMatchByIdMatch(idMatch);
+		for(VirtualMatchDTO i :list) {
+			virtualMatchService.deleteVirtualMatch(i);
+		}
 		return "success";
 	}
 
@@ -94,18 +112,23 @@ public class MatchServiceImp implements MatchService {
 
 	@Override
 	public String cancelMatch(int idMatch, HttpSession session) {
+		
 		MatchSTTClub match = matchDAO.getMatchSTTClubByIdMatch(idMatch);
+		
 		if(match==null) {
 			return "accountFail";
 		}
+		
 		if(!match.getRs().equals(session.getAttribute("email").toString())) {
 			return "accountFail";
 		}
+		
 //	check time
 		String checkTimeCancel = DateTimeUtils.checkTimeCancel(match);
 		if(checkTimeCancel.equals("fail")){
 			return "timeFail";
 		}
+		
 //	add
 		match.setRs("");
 		match.setState(0);
@@ -118,14 +141,20 @@ public class MatchServiceImp implements MatchService {
 			data.setIdMatch(match.getId());
 			data.setTimeStart(match.getTimeStart());
 			data.setTimeEnd(match.getTimeEnd());
+			data.setIdMatch(0);
 			data.setDate(match.getDate());
 			data.setMonth(match.getMonth());
 			data.setYear(match.getYear());
 			dataDAO.deleteDataMatchPlayer(data);
 		}
-//	notifi		
-		NotificationUtils.sendMessageSuccessToPlayer(session.getAttribute("email").toString());
 		
+//	notifi		
+		NotifiDTO notifi = new NotifiDTO();
+		notifi.setEmail(session.getAttribute("email").toString());
+		notifi.setEvent("4");
+		notifi.setHandleEvent("");
+		notifi.setMessage("Cancel Success");
+		notifiDAO.addNotifi(notifi);
 		return "success";
 	}
 

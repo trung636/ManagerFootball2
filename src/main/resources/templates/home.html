@@ -1,0 +1,60 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<style type="text/css">
+
+
+nav {
+
+  width: 25%;
+  height: 300px; /* only for demonstration, should be removed */
+  padding: 5px;
+}
+
+
+
+
+article {
+  float: left;
+  padding: 20px;
+  width: 50%;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+
+<section>
+  	<nav style="float: left;text-align: center;">
+	  <h1>New Feed</h1><br> <br>
+	  <a href="https://www.theguardian.com/football/2021/dec/05/evertons-director-of-football-marcel-brands-to-leave-club-amid-fans-unrest">Everton’s director of football Marcel Brands departs amid fans unrest</a>
+ 	</nav>
+  
+  	<article>
+  		<div style="text-align: center;">
+  			<h1>Last Match</h1><br> <br>
+  			<a>10:30 Đội A1 - Đội A2 Tại A3</a><br><br>
+  			<a>11:30 Đội B1 - Đội B2 Tại B3</a><br><br>
+  			<a>11:30 Đội C1 - Đội C2 Tại C3</a>
+  		</div>
+  	</article>
+	<nav style="float:right; text-align: center;">
+		<h1>World Football Calendar</h1><br> <br>
+		<a>03:00 07/12 Everton - Arsenal</a><br><br>
+		<a>00:30 07/12 Empoli - Udinese</a><br><br>
+		<a> 02:45 07/12 Cagliari - Torino</a>
+	</nav>
+</section>
+</body>
+</html>

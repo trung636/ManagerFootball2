@@ -2,6 +2,7 @@ package com.fball.dao;
 
 import java.util.List;
 
+import com.fball.dto.DateDTO;
 import com.fball.dto.MatchSTTClub;
 
 public interface ManagerMatchDAO {
@@ -10,6 +11,6 @@ public interface ManagerMatchDAO {
 
 	String bookMatch(MatchSTTClub match);
 
-	List<MatchSTTClub> getMatchSTTClubById(int id);
+	List<MatchSTTClub> getMatchSTTClubById(int id, DateDTO dateDTO);
 
 }

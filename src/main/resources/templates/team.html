@@ -12,16 +12,17 @@
 			<a th:href= "@{/friend?friend=newFriend}">Find New Friend</a>
 			<a th:href= "@{/friend?friend=acceptFriend}">Accept Friend</a>
 		</div>
-		
 		<th:block th:if="${friend} == 'myFriend'" >
 				<div th:if="${list} != null">
-					<h4>My Friend</h4>
 						<div th:each="list : ${list}">
-							<h4 th:utext="${list.namePlayer}"></h4>
-							<a th:href="@{'friend/delete-contact/' + ${list.id}}">
-								<button style="color: blue;">Cancel</button> </a> 
-							<a th:href="@{'friend/block-contact/' + ${list.id}}">
-								<button style="color: red">Block</button></a>
+							<div style="width: 25%; float:left; text-align: center;">
+								<img th:src="@{/resources/static/images/img-01.jpg}" alt="avt"/>
+								<h4 th:utext="${list.namePlayer}"></h4>
+								<a th:href="@{'friend/delete-contact/' + ${list.id}}">
+									<button style="color: blue;">Cancel</button> </a> 
+								<a th:href="@{'friend/block-contact/' + ${list.id}}">
+									<button style="color: red">Block</button></a>
+							</div>
 						</div>
 				</div>
 				<div th:unless="${list} != null">
@@ -30,13 +31,15 @@
 		</th:block>
 		<th:block th:if="${friend} == 'acceptFriend'" >
 				<div th:if="${list} != null">
-					<h4>Accept Contact</h4>
 						<div th:each="list : ${list}">
-							<h4 th:utext="${list.namePlayer}"></h4>
-							<a th:href="@{'friend/accept-contact/' + ${list.id}}">
-								<button style="color: blue;">Accept</button> </a> 
-							<a th:href="@{'friend/delete-contact/' + ${list.id}}">
-								<button style="color: red">Cancel</button></a>
+							<div style="width: 25%; float:left; text-align: center;">
+								<img alt="avt" th:src="@{/static/images/img-01.jpg}" />
+								<h4 th:utext="${list.namePlayer}"></h4>
+								<a th:href="@{'friend/accept-contact/' + ${list.id}}">
+									<button style="color: blue;">Accept</button> </a> 
+								<a th:href="@{'friend/delete-contact/' + ${list.id}}">
+									<button style="color: red">Cancel</button></a>
+							</div>
 						</div>
 				</div>
 				<div th:unless="${list} != null">
@@ -46,11 +49,15 @@
 		
 		<th:block th:if="${friend} == 'newFriend'" >
 				<div th:if="${list} != null">
-					<h4>Find My Friend</h4>
 						<div th:each="list : ${list}">
-							<h4 th:utext="${list.namePlayer}"></h4>
-							<a th:href="@{'friend/contact-player/'+${list.id}}">
-								<button style="color: blue;">Send request contact</button></a>
+							<div style="width: 25%; float:left; text-align: center;">
+								
+								<img alt="avt" th:src="@{/static/images/img-01.jpg}" />
+								<h4 th:utext="${list.namePlayer}"></h4>
+									<a th:href="@{'friend/contact-player/'+${list.id}}">
+										<button style="color: blue;">Send request contact</button></a>
+										
+							</div>
 						</div>
 				</div>
 				

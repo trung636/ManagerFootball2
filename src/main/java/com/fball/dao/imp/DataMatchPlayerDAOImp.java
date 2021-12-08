@@ -30,12 +30,13 @@ public class DataMatchPlayerDAOImp implements DataMatchPlayerDAO {
 							+ "id_match, "
 							+ "time_start, "
 							+ "time_end,"
-							+ "state, "
+							+ "state,"
+							+ "id_virtual, "
 							+ "date, "
 							+ "month, "
 							+ "year"
 							+ ") \n"
-							+ "values (?,?,?,?,?,?,?,?)";
+							+ "values (?,?,?,?,?,?,?,?,?)";
 		try(
 				Connection conn = dataSource.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -45,6 +46,7 @@ public class DataMatchPlayerDAOImp implements DataMatchPlayerDAO {
 							data.getTimeStart(),
 							data.getTimeEnd(),
 							data.getState(),
+							data.getIdVirtual(),
 							data.getDate(),
 							data.getMonth(),
 							data.getYear());

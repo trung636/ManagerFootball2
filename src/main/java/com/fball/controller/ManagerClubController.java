@@ -31,10 +31,9 @@ public class ManagerClubController {
 			return "redirect:/login";
 		}
 		ClubDTO clubDTO = managerClubService.getClubByEmail(session.getAttribute("email").toString());
-		if(clubDTO==null) {
-			
-		}
+		
 		Integer a = (Integer) session.getAttribute("idClub");
+		
 		List<STTClubDTO> sttClubs = managerClubService.getListSTTClubById(a);
 		
 		model.addAttribute("clubDTO", clubDTO);

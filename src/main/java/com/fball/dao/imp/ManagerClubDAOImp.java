@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fball.dao.ManagerClubDAO;
 import com.fball.dto.ClubDTO;
+import com.fball.dto.MatchSTTClub;
 import com.fball.dto.STTClubDTO;
 import com.fball.utils.SetParamaterForDAOUtils;
 
@@ -104,6 +105,69 @@ public class ManagerClubDAOImp implements ManagerClubDAO {
 		
 		
 		return "fail";
+	}
+
+	@Override
+	public STTClubDTO getSTTCLubByName(String name,int i) {
+		
+		String sql = "select * from stt_club \n"
+				+ "where name = ? and id_club = ?";
+		
+		try(
+				Connection conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)){
+			SetParamaterForDAOUtils.setParamater(ps, name, i);
+			try(ResultSet rs = ps.executeQuery()){
+				while(rs.next()) {
+					STTClubDTO sttClub = new STTClubDTO();
+					sttClub.setId(rs.getInt("id"));
+					sttClub.setIdClub(rs.getInt("id_club"));
+					sttClub.setEmail(rs.getString("email"));
+					sttClub.setName(rs.getString("name"));
+					sttClub.setEnable(rs.getInt("enable"));
+					sttClub.setTime_update(rs.getString("updated_date"));
+					return sttClub;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public String updateMatchSTTCLub(MatchSTTClub match) {
+		String sql = "insert into match_stt_club( "
+				+ "id_stt_club, "
+				+ "time_start, "
+				+ "time_end,"
+				+ "list_player,"
+				+ "state,"
+				+ "date,"
+				+ "month,"
+				+ "year) \n"
+				+ "values(?,?,?,?,?,?,?,?)";
+		try(Connection conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)){
+			SetParamaterForDAOUtils.setParamater(ps, 
+					match.getIdSTTClub(),
+					match.getTimeStart(),
+					match.getTimeEnd(),
+					match.getRs(),
+					match.getState(),
+					match.getDate(),
+					match.getMonth(),
+					match.getYear());
+			ps.executeUpdate();
+			return "success";
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return	"fail";
 	}
 
 }

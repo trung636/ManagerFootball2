@@ -1,0 +1,131 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Header</title>
+<style type="text/css">
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #f7f6f4;
+}
+
+.nav-bar{
+    display: flex;
+    height: 20vh;
+}
+
+.logo{
+    width: 25%;
+    height: 100px;
+}
+
+.logo h1{
+    line-height: 100px;
+    padding-left: 50px;
+    color: #010107;
+    cursor: pointer;
+}
+
+.menu-bar{
+    width: 50%;
+    height: 100px;
+}
+.menu-bar ul{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 53px;
+    cursor: pointer;
+}
+.menu-bar li{
+    list-style: none;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #131322;
+}
+.login{
+    width: 25%;
+    height: 100px;
+    line-height: 100px;
+    padding-left: 100px;
+}
+.login .sign-in{
+    font-size: 12px;
+    font-weight: bold;
+    border-radius:4px;
+    padding: 11px 17px;
+    color: #4a2469;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.login .sign-up{
+    font-size: 12px;
+    font-weight: bold;
+    border-radius:4px;
+    padding: 11px 17px;
+    color:#f0a510;
+    background-color: #575988;
+    border: none;
+    cursor: pointer;
+}
+.right{
+    width: 30%;
+    margin: 40px;
+    text-align: l;
+    position: relative;
+}
+.container{
+    display: flex;
+    height: 80vh;
+}
+.left{
+    width: 70%;
+    padding-left: 100px;
+}
+.left h1{
+    font-size: 1.6rem;
+    color:#010107;
+    margin-top: 150px;
+}
+.right{
+    width: 70%;
+    margin-bottom: 700x;
+    position: relative;
+}
+.right img{
+    width: 700px;
+    margin-bottom: 375px;
+}</style>
+</head>
+<body>
+	<header>
+	<div class="nav-bar">
+		<div class="logo">
+            <h1>Manager Football</h1>
+        </div>
+        
+        <div class="menu-bar">
+			<ul>
+				<li><a th:href="@{/notifi}">Notifi</a></li>
+				<li><a th:href="@{/manager-club}">Manager Club</a></li>
+			</ul>
+		</div>
+		<div class="login" th:if="${session.email}==null">
+			<a th:href="@{/login}" class="sign-in" >Sign in</a>
+            <a th:href="@{/registy}" class="sign-up">Sign up</a>
+		</div>
+		<div class="login" th:if="${session.email}!=null">
+			<a th:href="@{/logout}" class="sign-up">Logout</a>
+			<a th:href="@{/profile}" class="sign-up">Profile</a>
+		</div>
+    </div>
+		
+	</header>
+</body>
+</html>

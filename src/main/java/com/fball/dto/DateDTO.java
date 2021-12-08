@@ -5,6 +5,7 @@ public class DateDTO {
 	private int date;
 	private int month;
 	private int year;
+	
 	public int getDate() {
 		return date;
 	}

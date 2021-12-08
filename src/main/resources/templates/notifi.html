@@ -39,13 +39,57 @@ table tr:nth-child(1) {
 			<th>Message</th>
 		</tr>
 		<tr th:each="notifi :${notifi}">
-			<td th:utext="${notifi.time}"></td>
-			<td th:utext="${notifi.message}"></td>
-			<td><a th:href>Accept</a></td>
-			<td><a style="color: red;" th:href>Deny</a></td>
+			<td th:utext="${notifi.timeUpdate}"></td>
+			<td>
+				<th:block th:if="${notifi.event == '1'}">
+					<a th:href="@{/friend?friend=acceptFriend}" th:utext="${notifi.message}"></a>
+				</th:block>
+				
+				<th:block th:if="${notifi.event == '2'}">
+					<a th:href="@{/friend}" th:utext="${notifi.message}"></a>
+				</th:block>
+				<th:block th:if="${notifi.event == '3'}">
+					<a th:href="@{'/virtual-match/join?idVirtual='  + ${list.handleEvent}}" th:utext="${notifi.message}"></a>
+				</th:block>
+				<th:block th:if="${notifi.event == '4'}">
+					<a th:utext="${notifi.message}"></a>
+				</th:block>
+			</td>
+			
 		</tr>
 	</table>
 	
-	<a th:href = "@{/set_time}">setTime</a>
+	<th:block>
+			<th:block th:if="${joinFail}!=null">
+				<script type="text/javascript">
+					alert("Join Fail! You already exists");
+				</script>
+			</th:block>
+			<th:block th:if="${joinSuccess}!=null">
+				<script type="text/javascript">
+					alert("You Join Success!!");
+				</script>
+			</th:block>
+			<th:block th:if="${cancelFail}!=null">
+				<script type="text/javascript">
+					alert("Cancel Fail! You Does Not Exist");
+				</script>
+			</th:block>
+			<th:block th:if="${cancelSuccess}!=null">
+				<script type="text/javascript">
+					alert("You Cancel Success !!");
+				</script>
+			</th:block>
+			<th:block th:if="${fail}!=null">
+				<script type="text/javascript">
+					alert("Create Fail!!! You already exists");
+				</script>
+			</th:block>
+			<th:block th:if="${success}!=null">
+				<script type="text/javascript">
+					alert("Create Success");
+				</script>
+			</th:block>
+	</th:block>
 </body>
 </html>

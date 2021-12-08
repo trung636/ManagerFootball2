@@ -11,4 +11,6 @@ public interface ClubService {
 
 	List<STTClubDTO> getListSTTClubById(int idClub);
 
+	List<ClubDTO> getListClubByDistrict(String district);
+
 }

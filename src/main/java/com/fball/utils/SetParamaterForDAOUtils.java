@@ -2,7 +2,7 @@ package com.fball.utils;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+	
 public class SetParamaterForDAOUtils {
 
     //<editor-fold defaultstate="collapsed" desc="SET_PARAMATER">

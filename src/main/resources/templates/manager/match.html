@@ -32,7 +32,13 @@ table tr:nth-child(1) {
 </style>
 </head>
 <body>
-	<div th:insert="header"></div>
+	<div th:insert="manager/header"></div>
+	
+	<div style="text-align: right;">
+		<a th:href="@{'/manager-match/'+${idClub}+'?date=today'}">today</a>
+		<a th:href="@{'/manager-match/'+${idClub}+'?date=tomorrow'}">tomorrow</a>
+		<a th:href="@{'/manager-match/'+${idClub}+'?date=afterTomorrow'}">after tomorrow</a>
+	</div>
 	<table style="width: 100%">
 		<tr>
 			<th>Time</th>

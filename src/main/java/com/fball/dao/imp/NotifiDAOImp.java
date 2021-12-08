@@ -26,7 +26,8 @@ public class NotifiDAOImp implements NotifiDAO {
 	public List<NotifiDTO> getAllNotifi(String email) {
 		List<NotifiDTO> list = 	new ArrayList<>();
 		String sql = "select * from notifi \n "
-				+ "where email = ?";
+				+ "where email = ? \n"
+				+ "order by id desc";
 		try(
 				Connection conn = dataSource.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)){
@@ -54,6 +55,27 @@ public class NotifiDAOImp implements NotifiDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public String addNotifi(NotifiDTO notifi) {
+		String sql = "insert into notifi(email, event, handle_event,message) "
+				+ "values(?,?,?,?)";
+		try(
+				Connection conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)){
+			SetParamaterForDAOUtils.setParamater(ps, 
+								notifi.getEmail(), 
+								notifi.getEvent(),
+								notifi.getHandleEvent(),
+								notifi.getMessage());
+			ps.executeUpdate();
+			return "success";
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "fail";
 	}
 
 }

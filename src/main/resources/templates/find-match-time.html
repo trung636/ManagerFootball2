@@ -1,0 +1,139 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>New Notification</title>
+
+<style type="text/css">
+.registy {
+    border: 1px solid rgba(0, 0, 0, 0.877);
+    border-radius: 5px;
+    padding: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+table, th, td {
+	border: 1px solid #868585;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	text-align: left;
+	padding: 10px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+table tr:nth-child(even) {
+	background-color: white;
+}
+
+table tr:nth-child(1) {
+	background-color: skyblue;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+</style>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<div th:if= "${matchClubs} != null">
+		<div class="topnav" style="text-align: right;">
+		  <form th:action = "@{/find-match/time}" method="POST" th:object="${timeDTO}">
+			<label>Choose Time</label>
+			<input type= "time" name= "time" required="required">
+			<label>Choose Date</label>
+			<select  name="date">
+					<option value= "today">today</option>
+					<option value= "tomorrow">tomorrow</option>
+					<option value= "afterTomorrow">afterTomorrow</option>
+			</select>
+			<button type ="submit">Find</button>
+		</form>
+		</div>
+		<table style="width: 100%">
+			<tr>
+				<th>Time</th>
+				<th>Player</th>
+				<th>State</th>
+				<th>View Virtual</th>
+			</tr>
+			<tr th:each ="match : ${matchClubs}">
+				<td th:utext = "${match.timeStart}+ ' - ' + ${match.timeEnd}"></td>
+				<td th:utext = "${match.rs}"></td>
+				<td th:utext = "${match.state}"></td>
+				
+				<th:block th:if="${match.state == 0}">
+					<td><a th:href="@{'/virtual-match/' + ${match.id} + '?idStt=' + ${idStt}}">View Virtual Match</a></td>
+					<td><a th:href="@{'/match/book?idMatch=' + ${match.id} + '&idStt=' + ${idStt} +'&date='+${date}}"> book</a></td>
+				</th:block>
+				
+				<th:block th:if="${match.state == 1}">
+					<td><a th:href="@{'/match/cancel?idMatch=' + ${match.id} + '&idStt=' + ${idStt}+'&date='+${date}} ">Cancel</a></td>
+				</th:block>
+				
+			</tr>
+		</table>
+	</div>
+	<div th:if= "${matchClubs} == null" class="registy">
+		<form th:action = "@{/find-match/time}" method="POST" th:object="${timeDTO}">
+			<label>Choose Time</label>
+			<input type= "time" name= "time" required="required">
+			<label>Choose Date</label>
+			<select  name="date">
+					<option value= "today">today</option>
+					<option value= "tomorrow">tomorrow</option>
+					<option value= "afterTomorrow">afterTomorrow</option>
+			</select>
+			<button type ="submit">Find</button>
+		</form>
+		
+	</div>
+	<th:block>
+		<th:block th:if="${accountFail} != null">
+			<script type="text/javascript">
+				alert("Cancel Fail! You Can Not Do It...");
+			</script>
+		</th:block>
+		<th:block th:if="${bookSuccess}!=null">
+			<script type="text/javascript">
+				alert("You Book Success!!");
+			</script>
+		</th:block>
+		<th:block th:if="${cancelFail}!=null">
+			<script type="text/javascript">
+				alert("Cancel Fail! You Does Not Exist");
+			</script>
+		</th:block>
+		<th:block th:if="${cancelSuccess}!=null">
+			<script type="text/javascript">
+				alert("You Cancel Success !!");
+			</script>
+		</th:block>
+		<th:block th:if="${fail}!=null">
+			<script type="text/javascript">
+				alert("Create Fail!!! You already exists");
+			</script>
+		</th:block>
+		<th:block th:if="${success}!=null">
+			<script type="text/javascript">
+				alert("Create Success");
+			</script>
+		</th:block>
+		<th:block th:if="${timeFail}!=null">
+			<script type="text/javascript">
+				alert("Time Fail! Required Check Time!!");
+			</script>
+		</th:block>
+	</th:block>
+</body>
+</html>

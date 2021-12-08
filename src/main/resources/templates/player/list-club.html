@@ -33,6 +33,17 @@ table tr:nth-child(1) {
 </head>
 <body>
 	<div th:insert="header"></div>
+	<div class="topnav" style="text-align: right;">
+		  <form th:action = "@{/list-club}" method="POST" th:object="${findClubDTO}">
+			
+			<select  name="district">
+					<option value= "Quan1">Quan 1</option>
+					<option value= "Quan2">Quan 2</option>
+					<option value= "Quan3">Quan 3</option>
+			</select>
+			<button type ="submit">Find</button>
+		</form>
+		</div>
 	<table style="width: 100%">
 		<tr>
 			<th>Name Club</th>

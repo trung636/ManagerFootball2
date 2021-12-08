@@ -2,6 +2,7 @@ package com.fball.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
@@ -87,5 +88,14 @@ public class DateTimeUtils {
 			return "fail";
 		}
 		return "success";
+	}
+
+	public static String filter(String timeStart, String time) {
+		LocalTime t1 = LocalTime.parse(timeStart);
+		LocalTime t2 = LocalTime.parse(time).minusMinutes(1);
+		if(t1.isAfter(t2)) {
+			return "success";
+		}
+		return "false";
 	}
 }

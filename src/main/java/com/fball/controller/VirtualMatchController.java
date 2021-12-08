@@ -36,6 +36,7 @@ public class VirtualMatchController {
 			RedirectAttributes redirectAttributes) {
 		
 		List<VirtualMatchDTO> virtuals = virtualMatchService.getListVirtualMatchByIdMatch(idMatch);
+		
 		if(virtuals==null) {
 			redirectAttributes.addFlashAttribute("timeFail", true);
 			return "redirect:/match?idStt="+idStt+"&date=today";
@@ -65,32 +66,70 @@ public class VirtualMatchController {
 	}
 	
 	@GetMapping("/join")
-	private String joinVirtualMatch(@RequestParam int idMatch, @RequestParam int id,HttpSession session, RedirectAttributes redirectAttributes) {
+	private String joinVirtualMatch(@RequestParam(required = false, defaultValue  = "0") int idMatch, @RequestParam int idVirtual,HttpSession session, 
+			RedirectAttributes redirectAttributes) {
+		
 		
 		if(session.getAttribute("email")==null) {
 			return "redirect:/login";
 		}
-		String result = virtualMatchService.joinVirtualMatchInId(id, session.getAttribute("email").toString());
+		String result = virtualMatchService.joinVirtualMatchInId(idVirtual, session.getAttribute("email").toString());
 		if(result.equals("joinFail")) {
 			redirectAttributes.addFlashAttribute("joinFail", true);
 		}else {
 			redirectAttributes.addFlashAttribute("joinSuccess", true);
 		}
-		return "redirect:/virtual-match/"+idMatch;
+		if(idMatch==0) {
+			return "redirect:/notifi";
+		}else {
+			return "redirect:/virtual-match/"+idMatch;
+		}
 	}
 	
 	@GetMapping("/cancel")
-	private String cancelVirtualMatch(@RequestParam int idMatch, @RequestParam int id,HttpSession session, RedirectAttributes redirectAttributes) {
+	private String cancelVirtualMatch(
+			@RequestParam(required = false) int idMatch, 
+			@RequestParam int idVirtual,
+			HttpSession session, 
+			RedirectAttributes redirectAttributes) {
 		
 		if(session.getAttribute("email")==null) {
 			return "redirect:/login";
 		}
-		String result = virtualMatchService.cancelVirtualMatchInId(id, session.getAttribute("email").toString());
+		String result = virtualMatchService.cancelVirtualMatchInId(idVirtual, session.getAttribute("email").toString());
+		
 		if(result.equals("cancelFail")) {
 			redirectAttributes.addFlashAttribute("cancelFail", true);
 		}else {
 			redirectAttributes.addFlashAttribute("cancelSuccess", true);
 		}
+		return "redirect:/virtual-match/"+idMatch;
+	}
+	
+	
+	@GetMapping("/invite/{idVirtual}")
+	public String sendRequest(
+					@PathVariable(name = "idVirtual") int idVirtual,
+					@RequestParam(required = false) String idMatch,
+					@RequestParam(required = false, defaultValue = "all") String invite,
+					HttpSession session,
+					RedirectAttributes redirectAttributes) {
+		
+		if(session.getAttribute("email")==null) {
+			return "redirect/login";
+		}
+		String rs = virtualMatchService.inviteRequestAll(session, idVirtual);
+		if(rs.equals("inviteFail")){
+			redirectAttributes.addFlashAttribute("inviteFail", true);
+		}
+		if(rs.equals("timeFail")) {
+			redirectAttributes.addFlashAttribute("timeFail", true);
+
+		}else {
+			
+			redirectAttributes.addFlashAttribute("inviteSuccess", true);
+		}
+		
 		return "redirect:/virtual-match/"+idMatch;
 	}
 	
