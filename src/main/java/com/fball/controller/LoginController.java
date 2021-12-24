@@ -102,6 +102,11 @@ public class LoginController {
 		return "redirect:/login";
 	}
 	
+	@GetMapping("/error")
+	public String error() {
+		return "error";
+	}
+	
 //	@PostMapping("/check_email")
 //	private String checkEmail(@RequestParam String email) {
 //		

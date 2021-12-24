@@ -16,7 +16,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter  {
 		protected void configure(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests()
-					.antMatchers("/","/login","/check_login","/logout","/registy","/new_player","/new_club").permitAll()
+					.antMatchers("/","/login","/check_login","/logout","/registy","/new_player","/new_club", "/error").permitAll()
 					.antMatchers("/notifi","/profile", "/update_profile","/change_password").permitAll()
 					.antMatchers("/list-club/**","/club/**", "/match/**", "/virtual-match/**","/my-match/**","/friend/**","/find-match/**","/home").hasAnyRole("player")
 					.antMatchers("/manager-club/**","/manager-match/**").hasAnyRole("manager")
@@ -24,7 +24,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter  {
 				.and()
 				.formLogin()
 					.loginPage("/login");
+		
+		http.exceptionHandling().accessDeniedPage("/error");
 	}
+		
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

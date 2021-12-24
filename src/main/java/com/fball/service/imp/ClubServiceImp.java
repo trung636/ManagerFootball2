@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import com.fball.dao.ClubDAO;
 import com.fball.dto.ClubDTO;
 import com.fball.dto.STTClubDTO;
 import com.fball.service.ClubService;
 
+@ControllerAdvice
 @Service
 public class ClubServiceImp implements ClubService {
 	

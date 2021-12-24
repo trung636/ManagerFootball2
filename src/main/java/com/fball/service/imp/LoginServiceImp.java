@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,6 +52,7 @@ public class LoginServiceImp implements LoginService {
 		}else {
 			authorities.add(new SimpleGrantedAuthority("ROLE_"+"manager"));
 		}
+		
 		UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(accountDTO.getEmail(), accountDTO.getPassword(), authorities);
 	    SecurityContext sc = SecurityContextHolder.getContext();
 	    sc.setAuthentication(principal);

@@ -105,14 +105,14 @@
 </head>
 <body>
 	<header>
-		<div class="nav-bar" th:if="${session.namePlayer != null}">
+		<div class="nav-bar" th:unless="${session.nameClub != null}">
 			<div class="logo">
 	            <h1>FOOTBALL</h1>
 	        </div>
 	        
 	        <div class="menu-bar">
 				<ul>
-					<li><a th:href="@{/home}">Notifi</a></li>
+					<li><a th:href="@{/home}">Home</a></li>
 					<li><a th:href="@{/notifi}">Notifi</a></li>
 					<li><a th:href="@{/list-club}">Find Club</a></li>
 					<li><a th:href="@{/find-match}">Find Match</a></li>

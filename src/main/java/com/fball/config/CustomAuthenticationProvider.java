@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	UserDetailsService userDetailsService;
@@ -14,10 +15,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		return authentication;
 	}
-
 	@Override
 	public boolean supports(Class<?> authentication) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
