@@ -23,35 +23,52 @@ public class PlayerDAOImp implements PlayerDAO {
 	private DataSource dataSource;
 	
 	@Override
-	public String checkAccountPlayer(AccountDTO accountDTO, HttpSession session) {
+	public PlayerDTO checkAccountPlayer(AccountDTO accountDTO, HttpSession session) {
 		String sql = "select * from player \n"
 				+ "where email = ?";
+
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)){
 			SetParamaterForDAOUtils.setParamater(ps, accountDTO.getEmail());
 			try(ResultSet rs = ps.executeQuery()){
-				while(rs.next()) {
+
+				if(rs.next()) {
 					if(!accountDTO.getPassword().equals(rs.getString("password"))) {
-						return "fail";
+						return null;
 					}
-					session.setMaxInactiveInterval(86400);
-					session.setAttribute("id",rs.getInt("id") );
-					session.setAttribute("namePlayer",rs.getString("name_player"));
-					session.setAttribute("email",rs.getString("email"));
-					session.setAttribute("address",rs.getString("address"));
-					session.setAttribute("ward",rs.getString("ward"));
-					session.setAttribute("district",rs.getString("district"));
-					session.setAttribute("city",rs.getString("city"));
-					session.setAttribute("position",rs.getString("position"));
-					session.setAttribute("timeCreate", rs.getString("time_create"));
-					return "success";
+					PlayerDTO dto = new PlayerDTO();
+					dto.setId(rs.getInt("id") );
+					dto.setNamePlayer(rs.getString("name_player"));
+					dto.setEmail(rs.getString("email"));
+					dto.setAddress(rs.getString("address"));
+					dto.setCity(rs.getString("ward"));
+					dto.setRolePlayer(rs.getLong("role_player"));
+					dto.setDistrict(rs.getString("district"));
+					dto.setCity(rs.getString("city"));
+					dto.setPosition(rs.getString("position"));
+					dto.setTimeCreate(rs.getString("time_create"));
+
+					setSession(session, dto);
+					return dto;
 				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "fail";
+		return null;
+	}
+
+	void setSession(HttpSession session, PlayerDTO dto){
+		session.setMaxInactiveInterval(86400);
+		session.setAttribute("id",dto.getId());
+		session.setAttribute("namePlayer",dto.getNamePlayer());
+		session.setAttribute("email",dto.getEmail());
+		session.setAttribute("address",dto.getAddress());
+		session.setAttribute("ward",dto.getWard());
+		session.setAttribute("district",dto.getDistrict());
+		session.setAttribute("city",dto.getCity());
+		session.setAttribute("position",dto.getPosition());
 	}
 
 	@Override

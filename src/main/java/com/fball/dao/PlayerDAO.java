@@ -7,7 +7,7 @@ import com.fball.dto.PlayerDTO;
 
 public interface PlayerDAO {
 
-	String checkAccountPlayer(AccountDTO accountDTO, HttpSession session);
+	PlayerDTO checkAccountPlayer(AccountDTO accountDTO, HttpSession session);
 
 	PlayerDTO getPlayerByEmail(String email);
 

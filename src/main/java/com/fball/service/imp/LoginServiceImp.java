@@ -39,20 +39,14 @@ public class LoginServiceImp implements LoginService {
 	@Override
 	public String checkLogin(AccountDTO accountDTO, HttpSession session) {
 		
-		String player = playerDAO.checkAccountPlayer(accountDTO,session);
-		String club = clubDAO.checkAccountClub(accountDTO,session);
+		PlayerDTO user = playerDAO.checkAccountPlayer(accountDTO,session);
 		
-		if(player.equals("fail") && club.equals("fail")) {
+		if(user == null) {
 			return "fail";
 		}
-		
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		if(player.equals("success")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_"+"player"));
-		}else {
-			authorities.add(new SimpleGrantedAuthority("ROLE_"+"manager"));
-		}
-		
+		authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRolePlayer()));
+
 		UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(accountDTO.getEmail(), accountDTO.getPassword(), authorities);
 	    SecurityContext sc = SecurityContextHolder.getContext();
 	    sc.setAuthentication(principal);
